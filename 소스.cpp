@@ -12,7 +12,7 @@ struct seq {      //문자열을 위한 구조체 선언
 	string s;
 };
 
-vector<seq> a;  //문자열들을 저장할 벡터
+vector<seq> strings;  //문자열들을 저장할 벡터
 
 char buffer_string[2000];
 
@@ -34,7 +34,7 @@ void main()
 	seq temp_seq;        // 읽어온 문자열을 받을 seq
 	int name_end;   //이름이 끝나는 지점
 
-	ifstream inFile("prac3.txt");  //파일 열기
+	ifstream inFile("prac1.txt");  //파일 열기
 	while (!inFile.eof()) {
 		inFile.getline(buffer_string, 2000, '>');   // 텍스트를 >단위로 끊어읽고
 		temp_data = buffer_string;
@@ -42,24 +42,24 @@ void main()
 		temp_seq.name = temp_data.substr(0, name_end);
 		temp_seq.s = temp_data.substr(name_end + 1, temp_data.length() - 1);
 		
-		a.push_back(temp_seq);
+		strings.push_back(temp_seq);
 		temp_seq = {};
 
 	}
 	inFile.close();
-	a.erase(a.begin());
+	strings.erase(strings.begin());
 
-	for (int i = 0; i < a.size(); i++)
-		cout << a.at(i).name << endl << a.at(i).s << endl;    //읽은 문자열을 출력
+	for (int i = 0; i < strings.size(); i++)
+		cout << strings.at(i).name << endl << strings.at(i).s << endl;    //읽은 문자열을 출력
 
-	for (int n = 0; n < a.size(); n++)
-		for (int m = 0; m < a.size(); m++)
+	for (int n = 0; n < strings.size(); n++)
+		for (int m = 0; m < strings.size(); m++)
 		{
 			if (m == n)
 				continue;
 			int score = 0;  //최대 부분 문자열의 점수
-			seq1 = a.at(n).s + ".";
-			seq2 = a.at(m).s + ".";
+			seq1 = strings.at(n).s + ".";
+			seq2 = strings.at(m).s + ".";
 
 			int row = seq1.size() + 1; // 행
 			int col = seq2.size() + 1; // 열
@@ -144,8 +144,8 @@ void main()
 			{
 				cout << score << endl;
 
-				cout << "seq1 (name, Number) : " << "(" << a.at(n).name << "," << n << ")" << endl
-					<< "seq2 (name, Number) : " << "(" << a.at(m).name << "," << m << ")" << endl
+				cout << "seq1 (name, Number) : " << "(" << strings.at(n).name << "," << n << ")" << endl
+					<< "seq2 (name, Number) : " << "(" << strings.at(m).name << "," << m << ")" << endl
 					<< "score : " << score<< endl
 					<< s1.substr(0, s1.length() - 1) << endl
 					<< s3.substr(0, s3.length() - 2) << endl
